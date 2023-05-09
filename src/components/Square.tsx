@@ -11,6 +11,7 @@ const Square = (props: SquareProps) => {
     >
         {props.children}
     </button>
+    
   )
 }
 export default Square
