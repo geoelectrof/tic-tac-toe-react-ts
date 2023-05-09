@@ -56,11 +56,16 @@ function App() {
   let winner: string | null = calculateWinner()
   let status: string
   if (winner) {
-    status = `The winner is ${winner}`
+    status = `${winner} won`
   } else if (!winner && !squares.includes(null)) {
         status = `It's a tie`;
   } else {
     status = `${xIsPlaying ? "X" : "O"} is playing`
+  }
+
+  function restartGame(){ 
+    setSquares(Array(9).fill(null))
+    setXIsPlaying(true)
   }
 
   return (
@@ -81,7 +86,7 @@ function App() {
         <Square index = {7} handleClick = { (e, index) => handleClick(e, index) }> { squares[7] } </Square>
         <Square index = {8} handleClick = { (e, index) => handleClick(e, index) }> { squares[8] } </Square>
       </div>
-      <button onClick={() => (console.log("clicked"))}>Restart Game</button>
+      <button onClick={() => restartGame()}>Restart Game</button>
     </>
   )
 }
