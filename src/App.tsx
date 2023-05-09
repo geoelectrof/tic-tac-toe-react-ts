@@ -11,10 +11,11 @@ function App() {
     // console.log("Clicked!" ,e.currentTarget , index)
 
     //Prevents changing the value while clicking on an already clicked square
-    if (squares[index]) {
+    //or when we have a winner
+    if (squares[index] || calculateWinner()) {
       return
     }
-    
+
     const newSquares = squares.slice()
     if (xIsPlaying) {
       newSquares[index] = "X"
@@ -25,9 +26,46 @@ function App() {
     setXIsPlaying(!xIsPlaying)
   }
 
+  function calculateWinner() {
+    const winningLines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    let res = null;
+    winningLines.forEach((line) => {
+      const [a, b, c] = line;
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
+        console.log("We have a winner " + squares[a]);
+        res = squares[a];
+      }
+    });
+    return res;
+  }
+
+  let winner: string | null = calculateWinner()
+  let status: string
+  if (winner) {
+    status = `The winner is ${winner}`
+  } else if (!winner && !squares.includes(null)) {
+        status = `It's a tie`;
+  } else {
+    status = `${xIsPlaying ? "X" : "O"} is playing`
+  }
+
   return (
     <>
-      <div>App</div>  
+      <div>{status}</div>  
       <div>       
         <Square index = {0} handleClick = { (e, index) => handleClick(e, index) }> { squares[0] } </Square>
         <Square index = {1} handleClick = { (e, index) => handleClick(e, index) }> { squares[1] } </Square>
@@ -43,6 +81,7 @@ function App() {
         <Square index = {7} handleClick = { (e, index) => handleClick(e, index) }> { squares[7] } </Square>
         <Square index = {8} handleClick = { (e, index) => handleClick(e, index) }> { squares[8] } </Square>
       </div>
+      <button onClick={() => (console.log("clicked"))}>Restart Game</button>
     </>
   )
 }
