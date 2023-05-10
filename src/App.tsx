@@ -7,13 +7,16 @@ function App() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsPlaying, setXIsPlaying] = useState(true)
   const [status, setStatus] = useState("X is playing")
+  const [gameOver, setGameOver] = useState(false)
 
   useEffect(() => {
     let winner: string | null = calculateWinner()
     if (winner) {
       setStatus (`${winner} won`)
+      setGameOver(true)
     } else if (!winner && !squares.includes(null)) {
       setStatus (`It's a tie`)
+      setGameOver(true)
     } else {
       setStatus (`${xIsPlaying ? "X" : "O"} is playing`)
     }
@@ -69,6 +72,7 @@ function App() {
   function restartGame(){ 
     setSquares(Array(9).fill(null))
     setXIsPlaying(true)
+    setGameOver(false)
   }
 
   return (
@@ -84,21 +88,10 @@ function App() {
             >
               {square}
             </Square>
-          );
+          )
         })}      
-        {/* <Square index = {0} handleClick = { (e, index) => handleClick(e, index) }> { squares[0] } </Square>
-        <Square index = {1} handleClick = { (e, index) => handleClick(e, index) }> { squares[1] } </Square>
-        <Square index = {2} handleClick = { (e, index) => handleClick(e, index) }> { squares[2] } </Square>
-     
-        <Square index = {3} handleClick = { (e, index) => handleClick(e, index) }> { squares[3] } </Square>
-        <Square index = {4} handleClick = { (e, index) => handleClick(e, index) }> { squares[4] } </Square>
-        <Square index = {5} handleClick = { (e, index) => handleClick(e, index) }> { squares[5] } </Square>
-     
-        <Square index = {6} handleClick = { (e, index) => handleClick(e, index) }> { squares[6] } </Square>
-        <Square index = {7} handleClick = { (e, index) => handleClick(e, index) }> { squares[7] } </Square>
-        <Square index = {8} handleClick = { (e, index) => handleClick(e, index) }> { squares[8] } </Square> */}
       </div>
-      <button onClick={() => restartGame()}>Restart Game</button>
+      {gameOver && <button onClick={() => restartGame()}>Restart Game</button>}
     </>
   )
 }
