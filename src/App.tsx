@@ -74,17 +74,15 @@ function App() {
   return (
     <>
       <div>{status}</div>  
-      <div>       
+      <div className='board'>       
         <Square index = {0} handleClick = { (e, index) => handleClick(e, index) }> { squares[0] } </Square>
         <Square index = {1} handleClick = { (e, index) => handleClick(e, index) }> { squares[1] } </Square>
         <Square index = {2} handleClick = { (e, index) => handleClick(e, index) }> { squares[2] } </Square>
-      </div>
-      <div>       
+     
         <Square index = {3} handleClick = { (e, index) => handleClick(e, index) }> { squares[3] } </Square>
         <Square index = {4} handleClick = { (e, index) => handleClick(e, index) }> { squares[4] } </Square>
         <Square index = {5} handleClick = { (e, index) => handleClick(e, index) }> { squares[5] } </Square>
-      </div>
-      <div>       
+     
         <Square index = {6} handleClick = { (e, index) => handleClick(e, index) }> { squares[6] } </Square>
         <Square index = {7} handleClick = { (e, index) => handleClick(e, index) }> { squares[7] } </Square>
         <Square index = {8} handleClick = { (e, index) => handleClick(e, index) }> { squares[8] } </Square>
