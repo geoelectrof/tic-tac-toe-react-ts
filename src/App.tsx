@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css'
 import Square from './components/Square'
 
@@ -6,6 +6,19 @@ function App() {
 
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsPlaying, setXIsPlaying] = useState(true)
+  const [status, setStatus] = useState("X is playing")
+
+  useEffect(() => {
+    let winner: string | null = calculateWinner()
+    if (winner) {
+      setStatus (`${winner} won`)
+    } else if (!winner && !squares.includes(null)) {
+      setStatus (`It's a tie`)
+    } else {
+      setStatus (`${xIsPlaying ? "X" : "O"} is playing`)
+    }
+    console.log('status', status)
+  }, [squares])
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>, index: number){
     // console.log("Clicked!" ,e.currentTarget , index)
@@ -51,16 +64,6 @@ function App() {
       }
     });
     return res;
-  }
-
-  let winner: string | null = calculateWinner()
-  let status: string
-  if (winner) {
-    status = `${winner} won`
-  } else if (!winner && !squares.includes(null)) {
-        status = `It's a tie`;
-  } else {
-    status = `${xIsPlaying ? "X" : "O"} is playing`
   }
 
   function restartGame(){ 
