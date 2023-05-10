@@ -74,8 +74,19 @@ function App() {
   return (
     <>
       <div>{status}</div>  
-      <div className='board'>       
-        <Square index = {0} handleClick = { (e, index) => handleClick(e, index) }> { squares[0] } </Square>
+      <div className='board'> 
+        {squares.map((square, i): React.ReactNode => {
+          return (
+            <Square
+              key={i} 
+              index={i} 
+              handleClick={(e, index) => handleClick(e, index)}
+            >
+              {square}
+            </Square>
+          );
+        })}      
+        {/* <Square index = {0} handleClick = { (e, index) => handleClick(e, index) }> { squares[0] } </Square>
         <Square index = {1} handleClick = { (e, index) => handleClick(e, index) }> { squares[1] } </Square>
         <Square index = {2} handleClick = { (e, index) => handleClick(e, index) }> { squares[2] } </Square>
      
@@ -85,7 +96,7 @@ function App() {
      
         <Square index = {6} handleClick = { (e, index) => handleClick(e, index) }> { squares[6] } </Square>
         <Square index = {7} handleClick = { (e, index) => handleClick(e, index) }> { squares[7] } </Square>
-        <Square index = {8} handleClick = { (e, index) => handleClick(e, index) }> { squares[8] } </Square>
+        <Square index = {8} handleClick = { (e, index) => handleClick(e, index) }> { squares[8] } </Square> */}
       </div>
       <button onClick={() => restartGame()}>Restart Game</button>
     </>
