@@ -5,7 +5,7 @@ import Square from './components/Square'
 function App() {
 
   const [squares, setSquares] = useState(Array(9).fill(null));
-  const [xIsPlaying, setXIsPlaying] = useState(true)
+  const [playerPlaying, setPlayerPlaying] = useState("X")
   const [status, setStatus] = useState("X is playing")
   const [gameOver, setGameOver] = useState(false)
 
@@ -18,7 +18,7 @@ function App() {
       setStatus (`It's a tie`)
       setGameOver(true)
     } else {
-      setStatus (`${xIsPlaying ? "X" : "O"} is playing`)
+      setStatus (`${playerPlaying === "X" ? "X" : "O"} is playing`)
     }
     console.log('status', status)
   }, [squares])
@@ -33,13 +33,14 @@ function App() {
     }
 
     const newSquares = squares.slice()
-    if (xIsPlaying) {
+    if (playerPlaying === "X") {
       newSquares[index] = "X"
+      setPlayerPlaying("O")
     } else {
       newSquares[index] = "O"   
+      setPlayerPlaying("X")
     }
     setSquares(newSquares)
-    setXIsPlaying(!xIsPlaying)
   }
 
   function calculateWinner() {
@@ -71,7 +72,7 @@ function App() {
 
   function restartGame(){ 
     setSquares(Array(9).fill(null))
-    setXIsPlaying(true)
+    setPlayerPlaying("X")
     setGameOver(false)
   }
 
