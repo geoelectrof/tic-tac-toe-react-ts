@@ -15,7 +15,6 @@ function App() {
     } else if (!winner && !squares.includes(null)) {
       setGameResult (`It's a tie`)
     } 
-    console.log('gameResult', gameResult)
   }, [squares])
 
   function handleClick(index: number){
@@ -51,7 +50,6 @@ function App() {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        console.log("We have a winner " + squares[a]);
         res = squares[a];
       }
     });
@@ -66,8 +64,6 @@ function App() {
 
   return (
     <>
-      {/* <div>{gameResult}</div>   */}
-      {/* <div>{gameResult ? gameResult : <span> {playerPlaying} is playing</span>}</div> */}
       <div>{gameResult || <>{playerPlaying} is playing</>}</div>
       <div className="board">
         {squares.map((square, i): React.ReactNode => {
@@ -82,7 +78,6 @@ function App() {
           );
         })}
       </div>
-      {/* {gameOver && <button onClick={() => restartGame()}>Restart Game</button>} */}
       {<button className={gameResult ? '' : 'hide'} onClick={() => restartGame()}>Restart Game</button>}
     </>
   );
