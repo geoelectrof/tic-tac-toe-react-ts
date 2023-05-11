@@ -6,7 +6,7 @@ function App() {
 
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [playerPlaying, setPlayerPlaying] = useState("X")
-  const [status, setStatus] = useState("X is playing")
+  const [status, setStatus] = useState<string | null>(null)
   const [gameOver, setGameOver] = useState(false)
 
   useEffect(() => {
@@ -17,9 +17,7 @@ function App() {
     } else if (!winner && !squares.includes(null)) {
       setStatus (`It's a tie`)
       setGameOver(true)
-    } else {
-      setStatus (`${playerPlaying === "X" ? "X" : "O"} is playing`)
-    }
+    } 
     console.log('status', status)
   }, [squares])
 
@@ -33,13 +31,8 @@ function App() {
     }
 
     const newSquares = squares.slice()
-    if (playerPlaying === "X") {
-      newSquares[index] = "X"
-      setPlayerPlaying("O")
-    } else {
-      newSquares[index] = "O"   
-      setPlayerPlaying("X")
-    }
+    newSquares[index] = playerPlaying
+    playerPlaying === "X" ? setPlayerPlaying("O") : setPlayerPlaying("X")
     setSquares(newSquares)
   }
 
@@ -73,28 +66,31 @@ function App() {
   function restartGame(){ 
     setSquares(Array(9).fill(null))
     setPlayerPlaying("X")
+    setStatus(null)
     setGameOver(false)
   }
 
   return (
     <>
-      <div>{status}</div>  
-      <div className='board'> 
+      {/* <div>{status}</div>   */}
+      {/* <div>{status ? status : <span> {playerPlaying} is playing</span>}</div> */}
+      {status || <>{playerPlaying} is playing</>}
+      <div className="board">
         {squares.map((square, i): React.ReactNode => {
           return (
             <Square
-              key={i} 
-              index={i} 
+              key={i}
+              index={i}
               handleClick={(e, index) => handleClick(e, index)}
             >
               {square}
             </Square>
-          )
-        })}      
+          );
+        })}
       </div>
       {gameOver && <button onClick={() => restartGame()}>Restart Game</button>}
     </>
-  )
+  );
 }
 
 export default App
