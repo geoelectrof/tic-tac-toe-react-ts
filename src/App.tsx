@@ -6,16 +6,16 @@ function App() {
 
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [playerPlaying, setPlayerPlaying] = useState("X")
-  const [status, setStatus] = useState<string | null>(null)
+  const [gameResult, setGameResult] = useState<string | null>(null)
 
   useEffect(() => {
     let winner: string | null = checkForWinner()
     if (winner) {
-      setStatus (`${winner} won`)
+      setGameResult (`${winner} won`)
     } else if (!winner && !squares.includes(null)) {
-      setStatus (`It's a tie`)
+      setGameResult (`It's a tie`)
     } 
-    console.log('status', status)
+    console.log('gameResult', gameResult)
   }, [squares])
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>, index: number){
@@ -63,15 +63,14 @@ function App() {
   function restartGame(){ 
     setSquares(Array(9).fill(null))
     setPlayerPlaying("X")
-    setStatus(null)
-    setGameOver(false)
+    setGameResult(null)
   }
 
   return (
     <>
-      {/* <div>{status}</div>   */}
-      {/* <div>{status ? status : <span> {playerPlaying} is playing</span>}</div> */}
-      <div>{status || <>{playerPlaying} is playing</>}</div>
+      {/* <div>{gameResult}</div>   */}
+      {/* <div>{gameResult ? gameResult : <span> {playerPlaying} is playing</span>}</div> */}
+      <div>{gameResult || <>{playerPlaying} is playing</>}</div>
       <div className="board">
         {squares.map((square, i): React.ReactNode => {
           return (
@@ -86,7 +85,7 @@ function App() {
         })}
       </div>
       {/* {gameOver && <button onClick={() => restartGame()}>Restart Game</button>} */}
-      {<button className={status ? '' : 'hide'} onClick={() => restartGame()}>Restart Game</button>}
+      {<button className={gameResult ? '' : 'hide'} onClick={() => restartGame()}>Restart Game</button>}
     </>
   );
 }
