@@ -7,16 +7,13 @@ function App() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [playerPlaying, setPlayerPlaying] = useState("X")
   const [status, setStatus] = useState<string | null>(null)
-  const [gameOver, setGameOver] = useState(false)
 
   useEffect(() => {
     let winner: string | null = checkForWinner()
     if (winner) {
       setStatus (`${winner} won`)
-      setGameOver(true)
     } else if (!winner && !squares.includes(null)) {
       setStatus (`It's a tie`)
-      setGameOver(true)
     } 
     console.log('status', status)
   }, [squares])
@@ -89,7 +86,7 @@ function App() {
         })}
       </div>
       {/* {gameOver && <button onClick={() => restartGame()}>Restart Game</button>} */}
-      {<button className={gameOver ? '' : 'hide'} onClick={() => restartGame()}>Restart Game</button>}
+      {<button className={status ? '' : 'hide'} onClick={() => restartGame()}>Restart Game</button>}
     </>
   );
 }
