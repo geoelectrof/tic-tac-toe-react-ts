@@ -78,7 +78,12 @@ function App() {
           );
         })}
       </div>
-      {<button className={gameResult ? '' : 'hide'} onClick={() => restartGame()}>Restart Game</button>}
+      {<button 
+        className={gameResult ? '' : 'hide'} 
+        onClick={() => restartGame()}
+      >
+        Restart Game
+      </button>}
     </>
   );
 }
