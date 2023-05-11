@@ -18,9 +18,7 @@ function App() {
     console.log('gameResult', gameResult)
   }, [squares])
 
-  function handleClick(e: React.MouseEvent<HTMLButtonElement>, index: number){
-    // console.log("Clicked!" ,e.currentTarget , index)
-
+  function handleClick(index: number){
     //Prevents changing the value while clicking on an already clicked square
     //or when we have a winner
     if (squares[index] || checkForWinner()) {
@@ -77,7 +75,7 @@ function App() {
             <Square
               key={i}
               index={i}
-              handleClick={(e, index) => handleClick(e, index)}
+              handleClick={(index) => handleClick(index)}
             >
               {square}
             </Square>
