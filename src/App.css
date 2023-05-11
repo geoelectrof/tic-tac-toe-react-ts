@@ -22,3 +22,7 @@
   align-items: center;
   font-size: 70px;
 }
+
+.hide {
+  visibility: hidden;
+}

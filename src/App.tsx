@@ -10,7 +10,7 @@ function App() {
   const [gameOver, setGameOver] = useState(false)
 
   useEffect(() => {
-    let winner: string | null = calculateWinner()
+    let winner: string | null = checkForWinner()
     if (winner) {
       setStatus (`${winner} won`)
       setGameOver(true)
@@ -26,7 +26,7 @@ function App() {
 
     //Prevents changing the value while clicking on an already clicked square
     //or when we have a winner
-    if (squares[index] || calculateWinner()) {
+    if (squares[index] || checkForWinner()) {
       return
     }
 
@@ -36,7 +36,7 @@ function App() {
     setSquares(newSquares)
   }
 
-  function calculateWinner() {
+  function checkForWinner() {
     const winningLines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -74,7 +74,7 @@ function App() {
     <>
       {/* <div>{status}</div>   */}
       {/* <div>{status ? status : <span> {playerPlaying} is playing</span>}</div> */}
-      {status || <>{playerPlaying} is playing</>}
+      <div>{status || <>{playerPlaying} is playing</>}</div>
       <div className="board">
         {squares.map((square, i): React.ReactNode => {
           return (
@@ -88,7 +88,8 @@ function App() {
           );
         })}
       </div>
-      {gameOver && <button onClick={() => restartGame()}>Restart Game</button>}
+      {/* {gameOver && <button onClick={() => restartGame()}>Restart Game</button>} */}
+      {<button className={gameOver ? '' : 'hide'} onClick={() => restartGame()}>Restart Game</button>}
     </>
   );
 }

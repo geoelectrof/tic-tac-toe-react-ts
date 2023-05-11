@@ -12,3 +12,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+button {
+  border: solid 2px black;
+  padding: 10px;
+}
